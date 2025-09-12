@@ -59,13 +59,6 @@ daySelector.addEventListener('change', (e) => {
   renderHourly(parseInt(e.target.value));
 });
 
-// Units toggle interaction demo
-document.getElementById('units-toggle').addEventListener('change', e => {
-  // Update metric/imperial units - for real app, refetch API data
-  // This is just a demo interaction!
-  alert('Units changed to: ' + e.target.value);
-});
-
 // Search interaction
 document.getElementById('search-btn').addEventListener('click', () => {
   // For demo, just prompt search!
@@ -108,4 +101,27 @@ document.getElementById('search-btn').addEventListener('click', async () => {
 
   const weather = await fetchWeather(location.lat, location.lon, units);
   // TODO: Parse `weather` and update DOM, e.g. update temperature, daily, and hourly forecast
+});
+
+const unitsToggle = document.querySelector('.units-toggle');
+const unitsBtn = document.querySelector('.units-btn');
+const unitsDropdown = document.querySelector('.units-dropdown');
+const unitItems = document.querySelectorAll('.unit-item');
+
+unitsBtn.onclick = () => {
+  unitsToggle.classList.toggle('open');
+};
+
+unitItems.forEach(btn => {
+  btn.onclick = () => {
+    // Handle unit selection with btn.dataset.value;
+    unitsToggle.classList.remove('open');
+    // Your API logic goes here…
+  };
+});
+
+document.addEventListener('click', e => {
+  if (!unitsToggle.contains(e.target)) {
+    unitsToggle.classList.remove('open');
+  }
 });

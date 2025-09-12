@@ -1,7 +1,6 @@
 :root {
-  --primary-bg: #030343;
-  /* --accent: #2c2e5d; */
-  --accent: #03043b;
+  --primary-bg: #00002a;
+  --accent: #00002a;
   --highlight: #4c67ff;
   --text: #fff;
   --shadow: rgba(0,0,0,0.2);
@@ -15,19 +14,16 @@ body {
   margin: 0;
 }
 
-.units-toggle{
-  background-color: #22244b;
-  
-}
+
 .app-container {
   max-width: 900px;
-  margin: 32px auto;
-  background: var(--accent);
+  margin: auto;
+  /* background: var(--accent);
   border-radius: var(--radius);
   box-shadow: 0 2px 32px var(--shadow);
-  padding: 24px;
-}
-
+  padding: 24px; */
+} 
+/* header */
 header {
   display: flex;
   justify-content: space-between;
@@ -35,10 +31,87 @@ header {
   margin-bottom: 18px;
 }
 
-.logo {
+/* .logo {
   font-weight: 700;
   font-size: 1.4rem;
+} */
+
+.units-toggle {
+  position: relative;
+  display: inline-block;
+  margin: 20px;
 }
+.units-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #292b51;
+  color: #fff;
+  border-radius: 10px;
+  border: none;
+  padding: 12px;
+  font-size: 1.08rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.19);
+  cursor: pointer;
+  font-family: inherit;
+  width: 100px;
+  transition: box-shadow 0.2s;
+}
+.units-btn:focus, .units-btn:hover {
+  box-shadow: 0 4px 18px rgba(76,103,255,0.25);
+  outline: none;
+}
+
+.units-icon {
+  display: flex;
+  align-items: center;
+}
+
+.units-arrow {
+  margin-left: auto;
+  font-size: 1.2em;
+}
+
+.units-label {
+  /* margin-left: 6px; */
+  font-weight: 500;
+  align-items: center;
+}
+
+.units-dropdown {
+  display: none; /* Show on click via JS */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #292b51;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.21);
+  margin-top: 5px;
+  z-index: 90;
+}
+.unit-item {
+  width: 100%;
+  background: none;
+  border: none;
+  color: #fff;
+  padding: 10px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.15s;
+  border-radius: 8px;
+}
+.unit-item:hover, .unit-item:focus {
+  background: #383a5d;
+}
+
+/* Show dropdown when .open class is added */
+.units-toggle.open .units-dropdown {
+  display: block;
+}
+/* header end */
+
 
 .headline {
   text-align: center;

@@ -20,13 +20,22 @@
 
    <main class="app-container">
     <header>
-      <span class="logo"><img src = "..\assets\images\logo.svg"> </img> </span>
+      <span class="logo"><img src = "..\assets\images\logo.svg"  width="170px"></span>
       <div class="units-toggle">
-        <select id="units-toggle">
-          <option value="metric">Celsius</option>
-          <option value="imperial">Farenheit</option>
-        </select>
+        <button type="button" class="units-btn">
+          <span class="units-icon">
+            <img src = "..\assets\images\icon-units.svg">
+          </span>
+          <span class="units-label">Units</span>
+          <span class="units-arrow"><img src = "..\assets\images\icon-dropdown.svg"></span>
+        </button>
+        <!-- Custom dropdown for unit selection -->
+        <div class="units-dropdown">
+          <button class="unit-item" data-value="metric">Celsius</button>
+          <button class="unit-item" data-value="imperial">Fahrenheit</button>
+        </div>
       </div>
+
     </header>
     <h1 class="headline">How's the sky looking today?</h1>
     <section class="search-section">
@@ -40,7 +49,7 @@
           <span id="weather-date">Tuesday, Aug 5, 2025</span>
         </div>
         <div class="temp-icon">
-          <span id="weather-icon"><img src = "..\assets\images\icon-sunny.webp" height="50px"></img></span>
+          <span id="weather-icon"><img src = "..\assets\images\icon-sunny.webp" height="50px"> </span>
           <span id="weather-temp" class="highlight-temp">20°</span>
         </div>
       </div>
