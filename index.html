@@ -7,8 +7,10 @@
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
   
   <title>Frontend Mentor | Weather app</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <link rel="stylesheet" href="styles.css">
+
   <style>
     .attribution { font-size: 11px; text-align: center; }
     .attribution a { color: hsl(228, 45%, 44%); }
@@ -16,51 +18,57 @@
 </head>
 <body>
 
-  Units
-
-  Switch to Imperial/Metric
-
-  Temperature
-
-  Celsius (°C)
-  Fahrenheit (°F)
-
-  Wind Speed
-
-  km/h
-  mph
-
-  Precipitation
-
-  Millimeters (mm)
-  Inches (in)
-
-  How's the sky looking today?
-
-  Search for a city, e.g., New York
-  Search
-
-  Feels like
-  <!-- Insert temperature here -->
-
-  Humidity
-  <!-- Insert humidity here -->
-
-  Wind
-  <!-- Insert wind here -->   
-  
-  Precipitation
-  <!-- Insert precipitation here -->
-
-  Daily forecast
-  <!-- Insert daily forecast for the next 7 days here -->
-
-  Hourly forecast
-  <!-- Insert hourly forecast for the selected day here -->
+   <main class="app-container">
+    <header>
+      <span class="logo"><img src = "..\assets\images\logo.svg"> </img> </span>
+      <div class="units-toggle">
+        <select id="units-toggle">
+          <option value="metric">Celsius</option>
+          <option value="imperial">Farenheit</option>
+        </select>
+      </div>
+    </header>
+    <h1 class="headline">How's the sky looking today?</h1>
+    <section class="search-section">
+      <input type="text" id="search-box" placeholder="Search for a place...">
+      <button id="search-btn">Search</button>
+    </section>
+    <section class="weather-main">
+      <div class="current-weather">
+        <div class="location-date">
+          <span id="weather-location">Berlin, Germany</span>
+          <span id="weather-date">Tuesday, Aug 5, 2025</span>
+        </div>
+        <div class="temp-icon">
+          <span id="weather-icon"><img src = "..\assets\images\icon-sunny.webp" height="50px"></img></span>
+          <span id="weather-temp" class="highlight-temp">20°</span>
+        </div>
+      </div>
+      <div class="metrics">
+        <div>Feels Like <span id="feels-like">18°</span></div>
+        <div>Humidity <span id="humidity">46%</span></div>
+        <div>Wind <span id="wind">14 km/h</span></div>
+        <div>Precipitation <span id="precipitation">0 mm</span></div>
+      </div>
+      <div class="daily-forecast" id="daily-forecast">
+        <!-- 7-day forecast rendered here by JS -->
+      </div>
+      <div class="hourly-selector">
+        <select id="day-selector">
+          <!-- Days will be rendered here by JS -->
+        </select>
+      </div>
+      <div class="hourly-forecast" id="hourly-forecast">
+        <!-- Hourly forecast rendered here by JS -->
+      </div>
+    </section>
+  </main>
+ 
 
   <div class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
     Coded by <a href="#">Your Name Here</a>.
   </div>
+  <script src="script.js"></script>
 </body>
 </html>
