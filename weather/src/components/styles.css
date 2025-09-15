@@ -16,7 +16,7 @@ body {
 
 
 .app-container {
-  max-width: 900px;
+  max-width: 1000px;
   margin: auto;
   /* background: var(--accent);
   border-radius: var(--radius);
@@ -40,8 +40,16 @@ header {
   position: relative;
   display: inline-block;
   margin: 20px;
+  align-items: center;
+  background: #292b51;
+  border-radius: 12px;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #fff;
+  user-select: none;
+  position: relative;
 }
-.units-btn {
+/* .units-btn {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -60,16 +68,17 @@ header {
 .units-btn:focus, .units-btn:hover {
   box-shadow: 0 4px 18px rgba(76,103,255,0.25);
   outline: none;
+} */
+
+.units-icon-img {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
 }
 
-.units-icon {
-  display: flex;
-  align-items: center;
-}
-
-.units-arrow {
-  margin-left: auto;
-  font-size: 1.2em;
+.units-arrow .arrow-image {
+  width: 12px;
+  height: 12px;
 }
 
 .units-label {
@@ -95,7 +104,7 @@ header {
   background: none;
   border: none;
   color: #fff;
-  padding: 10px;
+  padding: 10px;         /*jygyugutt7777tygdghnvbnthkyunhyutjghbfgjmghgruyjnn */
   text-align: left;
   cursor: pointer;
   font-size: 1rem;
@@ -115,7 +124,7 @@ header {
 
 .headline {
   text-align: center;
-  font-size: 2.5rem;
+  font-size: 3.9rem;
   margin-bottom: 50px;
 }
 
@@ -130,13 +139,30 @@ header {
   margin-bottom: 24px;
 }
 
+.search-img{
+  flex: 1;
+  background: #2b2944;
+  color: #fff;
+  border: none;
+  outline: none;
+  height: 48px;
+  font-size: 1.15rem;
+  border-radius: 14px;
+  display: flex;
+  position: relative;
+}
+.search-icon{
+  height: 25px;
+  padding: 15px;
+  position: relative;
+}
+
 .search-box {
   flex: 1;
   background: #2b2944;
   color: #fff;
   border: none;
   outline: none;
-  padding: 0 0 0 42px;  /* space for the icon */
   height: 48px;
   font-size: 1.15rem;
   border-radius: 14px;
@@ -162,12 +188,6 @@ header {
   display: block;
   width: 22px;
   height: 22px;
-  position: absolute;
-  left: 18px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: url('../assets/images/icon-search.svg') no-repeat center/contain;
-  /* Use your actual icon path */
   pointer-events: none;
 }
 
@@ -177,7 +197,7 @@ header {
   border: none;
   border-radius: 10px;
   padding: 0 28px;
-  height: 42px;
+  height: 48px;
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
@@ -203,16 +223,20 @@ header {
     width: 100%;   /* full width on mobile */
     text-align: center;
   }
-  #search-box {
+  #search-img {
     width: 100%;   /* full width on mobile */
-    height: 48px;
-    
+    height: 48px; 
+  }
+  .search-box{
+    width: 100%;   /* full width on mobile */
+    height: 48px; 
   }
 }
 /* Desktop view (min 768px wide) */
 @media (min-width: 768px) {
   #search-box {
-    padding-right: 200px; /* only on desktop */
+    padding-right: px; /* only on desktop */
+    width: 150px;
   }
 }
 
@@ -221,13 +245,14 @@ header {
 }
 /* search sectiion end  */
 
+
 .weather-main {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 32px;
 }
 
-.current-weather, .metrics, .daily-forecast, .hourly-forecast {
+.current-weather, .wind, .feels-like, .humidity, .precipitation, .hourly-forecast {
   background: #212240;
   border-radius: var(--radius);
   margin-bottom: 18px;
@@ -252,6 +277,13 @@ header {
   background-position: center;
 }
 
+@media (min-width: 768px) {
+  .current-weather {
+    padding-right: 200px; /* only on desktop */
+    height: 200px;
+  }
+}
+
 .location-date {
   font-size: 1.1rem;
   color: #d1d2ea;
@@ -273,16 +305,23 @@ header {
 
 .metrics {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
-  text-align: center;
+  text-align: start;
   font-size: 1rem;
-  /* display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 8px; */
 }
-
-
+@media (max-width: 600px) {
+  .metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.curr-wind, .curr-temp, .curr-humidity, .curr-preci{
+  font-size: 1.5em;
+  
+}
+.h3{
+  display: flex;
+}
 .daily-forecast {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -309,8 +348,19 @@ header {
   color: #b4b8e7;
 }
 
+.top{
+  display: flex;
+  justify-content: space-between;
+}
+.hourly-forecast h3{
+  display: flex;
+  text-align: left;
+  font-size: 1em;
+}
 .hourly-selector {
   margin-bottom: 1em;
+  text-align: right;
+  display: flex;
 }
 .hourly-selector select {
   padding: 8px;
@@ -327,12 +377,13 @@ header {
   gap: 6px;
 }
 
+
 .hour-block {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   background: #2b2d54;
   border-radius: 7px;
-  padding: 8px 18px;
+  padding: 5px 18px;
   align-items: center;
   font-size: 1.08rem;
 }
@@ -341,8 +392,10 @@ header {
   font-size: 1.3rem;
   margin-right: 1em;
 }
+
 .hour-block .hour-temp {
   font-weight: 600;
+  margin-left: auto;
 }
 
 @media (max-width: 800px) {
@@ -362,10 +415,66 @@ header {
     gap: 10px;
   }
   .daily-forecast {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 8px;
   }
   .hourly-forecast {
     grid-template-rows: none;
   }
+}
+
+
+/* DM Sans: Example for semi-bold, medium, and variable font */
+@font-face {
+  font-family: 'DM Sans';
+  src: url('../assets/fonts/DM_Sans/static/DMSans-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'DM Sans';
+  src: url('../assets/fonts/DM_Sans/static/DMSans-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'DM Sans';
+  src: url('../assets/fonts/DM_Sans/static/DMSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+/* For all weights, you can use the Variable version: */
+@font-face {
+  font-family: 'DM Sans Variable';
+  src: url('../assets/fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+/* Bricolage Grotesque: Example for bold and variable font */
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('../assets/fonts/Bricolage_Grotesque/static/BricolageGrotesque-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Bricolage Grotesque Variable';
+  src: url('../assets/fonts/Bricolage_Grotesque/BricolageGrotesque-VariableFont_opsz,wdth,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+
+body {
+  font-family: 'DM Sans Variable', 'DM Sans', Arial, sans-serif;
+  font-weight: 400;
+}
+h1, h2, .logo {
+  font-family: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', 'DM Sans', Arial, sans-serif;
+  font-weight: bold;
+}
+button, input, .headline {
+  font-family: 'DM Sans Variable', 'DM Sans', Arial, sans-serif;
+  font-weight: 500;
 }

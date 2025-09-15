@@ -2,8 +2,18 @@ import React, { useState, useEffect } from 'react';
 
 import logo from '../assets/images/logo.svg';
 import unitsIcon from '../assets/images/icon-units.svg';
-import './styles.css';
+import arrow from '../assets/images/icon-dropdown.svg';
+import searchIcon from '../assets/images/icon-search.svg'
+import drizzle from '../assets/images/icon-drizzle.webp';
+import sunny from '../assets/images/icon-sunny.webp';
+import overcast from '../assets/images/icon-overcast.webp';
+import storm from '../assets/images/icon-storm.webp';
+import partly_cloudy from '../assets/images/icon-partly-cloudy.webp';
+import snow from '../assets/images/icon-snow.webp';
 
+
+
+import './styles.css';
 
 // Helper to geocode user input (Nominatim API, free)
 async function geocodePlace(place) {
@@ -21,7 +31,7 @@ const unitOptions = [
 ];
 
 export default function WeatherApp() {
-  const [search, setSearch] = useState("Berlin, Germany");
+  const [search, setSearch] = useState("");
   const [location, setLocation] = useState({ lat: 52.52, lon: 13.405, display_name: "Berlin, Germany" });
   const [weather, setWeather] = useState(null);
   const [units, setUnits] = useState("metric");
@@ -64,36 +74,39 @@ export default function WeatherApp() {
   return (
     <div className="app-container">
       <header className="header">
-        <img src={logo} alt="Weather Now Logo" className="logo-img" />
+        <img src={logo} alt="Weather Now Logo" className="logo-img" width="170px" />
         <div className="units-toggle">
-          <button className="units-btn">
-            <span className="units-icon">
-              <img src={unitsIcon} alt="Units" className="units-icon-img" />
-            </span>
-
-            <span className="units-label">Units</span>
-            <span className="units-arrow">&#9662;</span>
-            <select
-              className="units-dropdown"
-              value={units}
-              onChange={e => setUnits(e.target.value)}
-            >
-              {unitOptions.map(u => (
-                <option key={u.value} value={u.value}>{u.label}</option>
-              ))}
-            </select>
-          </button>
+          <span className="units-icon">
+            <img src={unitsIcon} alt="Units" className="units-icon-img" />
+          </span>
+          <span className="units-label">Units</span>
+          <span className="units-arrow">
+            <img src={arrow} alt="Arrow" className="arrow-image" />
+          </span>
+          <select
+            className="units-dropdown"
+            value={units}
+            onChange={e => setUnits(e.target.value)}
+          >
+            {unitOptions.map(u => (
+              <option key={u.value} value={u.value}>{u.label}</option>
+            ))}
+          </select>
         </div>
+
       </header>
-      <h1 className="headline">How's the sky looking today?</h1>
+      <h1 className="headline"><b>How's the sky looking today?</b></h1>
       <form className="search-section" onSubmit={handleSearch}>
-        <input
-          type="text"
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          placeholder="Search for a place..."
-          className="search-box"
-        />
+        <div className="search-img">
+          <img src={searchIcon} alt="Search" className='search-icon' />
+          <input
+            type="text"
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            placeholder="Search for a place..."
+            className="search-box"
+          /> 
+        </div>
         <button type="submit" className="search-btn">
           Search
         </button>
@@ -115,11 +128,20 @@ export default function WeatherApp() {
               </div>
             </div>
             <div className="metrics">
-              <div>Feels Like<br /><span>{weather.current?.apparent_temperature}°</span></div>
-              <div>Humidity<br /><span>{weather.current?.relative_humidity_2m}%</span></div>
-              <div>Wind<br /><span>{weather.current?.wind_speed_10m}{units === "imperial" ? " mph" : " km/h"}</span></div>
-              <div>Precipitation<br /><span>{weather.current?.precipitation}{units === "imperial" ? " in" : " mm"}</span></div>
+              <div className='feels-like'>Feels Like<br /> <br />
+                <span className='curr-temp'>{weather.current?.apparent_temperature}°</span>
+              </div>
+              <div className='humidity'>Humidity<br /> <br />
+                <span className='curr-humidity'>{weather.current?.relative_humidity_2m}%</span>
+              </div>
+              <div className='wind'>Wind<br /> <br />
+                <span className='curr-wind'>{weather.current?.wind_speed_10m}{units === "imperial" ? " mph" : " km/h"}</span>
+              </div>
+              <div className='precipitation'>Precipitation<br /> <br />
+                <span className='curr-preci'>{weather.current?.precipitation}{units === "imperial" ? " in" : " mm"}</span>
+              </div>
             </div>
+            <h3>Daily Forecast</h3>
             <div className="daily-forecast">
               {weather.daily.time.map((d, idx) => (
                 <div key={d} className="forecast-day">
@@ -130,19 +152,23 @@ export default function WeatherApp() {
               ))}
             </div>
           </div>
+
           <div>
-            <div className="hourly-selector">
-              <select value={selectedDay} onChange={e => setSelectedDay(Number(e.target.value))} className="day-selector">
-                {weather.daily.time.map((d, idx) => (
-                  <option key={d} value={idx}>{getDayLabel(d)}</option>
-                ))}
-              </select>
-            </div>
             <div className="hourly-forecast">
+              <div className="top">
+                <h3>Hourly forecast</h3>
+                <div className="hourly-selector">
+                  <select value={selectedDay} onChange={e => setSelectedDay(Number(e.target.value))} className="day-selector">
+                    {weather.daily.time.map((d, idx) => (
+                      <option key={d} value={idx}>{getDayLabel(d)}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
               {getHourlyForDay(weather.hourly, weather.daily.time[selectedDay]).map((h, idx) => (
                 <div key={idx} className="hour-block">
-                  <span className="hour-label">{formatHour(h.time)}</span>
                   <span className="hour-icon">{getWeatherIcon(h.weather_code)}</span>
+                  <span className="hour-label">{formatHour(h.time)}</span>
                   <span className="hour-temp">{h.temperature_2m}°</span>
                 </div>
               ))}
@@ -155,13 +181,13 @@ export default function WeatherApp() {
 }
 
 function getWeatherIcon(code) {
-  if ([].includes(code)) return "☀️";
-  if ([1,2,3].includes(code)) return "🌤️";
-  if ([45,48].includes(code)) return "🌫️";
+  if ([].includes(code)) return <img src={sunny} alt="Sunny" className="sunny-image" height= "35px"/>;
+  if ([1,2,3].includes(code)) return <img src={partly_cloudy} alt="Partly-cloudy" className="partly-cloudy-image" height= "35px"/>;
+  if ([45,48].includes(code)) return <img src={overcast} alt="Cloudy" className="cloudy-image" height= "35px"/>;
   if ([51,53,55,56,57].includes(code)) return "🌦️";
-  if ([61,63,65,66,67,80,81,82].includes(code)) return "🌧️";
-  if ([71,73,75,77,85,86].includes(code)) return "❄️";
-  if ([95,96,99].includes(code)) return "⛈️";
+  if ([61,63,65,66,67,80,81,82].includes(code)) return <img src={drizzle} alt="Drizzle" className="cloud-with-rain-img" height= "35px"/>;
+  if ([71,73,75,77,85,86].includes(code)) return <img src={snow} alt="Snow" className="snow-image" height= "35px"/>;
+  if ([95,96,99].includes(code)) return <img src={storm} alt="Storm" className="storm-image" height= "35px"/>;
   return "🌡️";
 }
 
