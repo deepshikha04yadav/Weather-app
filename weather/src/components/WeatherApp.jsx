@@ -116,9 +116,11 @@ export default function WeatherApp() {
         <section className="weather-main">
           <div>
             <div className="current-weather">
-              <div className="location-date">{location.display_name}</div>
-              <div className="weather-date">
-                {formatDate((weather.current && weather.current.time) || new Date(), { weekday: "long", year: "numeric", month: "short", day: "numeric" })}
+              <div className="weather-loc">
+                <div className="location">{location.display_name}</div>
+                <div className="weather-date">
+                  {formatDate((weather.current && weather.current.time) || new Date(), { weekday: "long", year: "numeric", month: "short", day: "numeric" })}
+                </div>
               </div>
               <div className="temp-icon">
                 <span className="weather-main-icon">
@@ -141,13 +143,22 @@ export default function WeatherApp() {
                 <span className='curr-preci'>{weather.current?.precipitation}{units === "imperial" ? " in" : " mm"}</span>
               </div>
             </div>
-            <h3>Daily Forecast</h3>
+            <div className="daily-forecast-heading">
+              <h3>Daily Forecast</h3>
+            </div>
             <div className="daily-forecast">
               {weather.daily.time.map((d, idx) => (
                 <div key={d} className="forecast-day">
-                  <span className="label">{getDayLabel(d)}</span>
-                  <span className="icon">{getWeatherIcon(weather.daily.weather_code[idx])}</span>
-                  <div className="minmax">{weather.daily.temperature_2m_max[idx]}° / {weather.daily.temperature_2m_min[idx]}°</div>
+                  <span className="label">{getDayLabel(d)}</span> <br /> <br />
+                  <span className="icon">{getWeatherIcon(weather.daily.weather_code[idx])}</span> <br />
+                  <div className="minmax">
+                    <div className="max">
+                      {weather.daily.temperature_2m_max[idx]}°
+                    </div>
+                    <div className="min">
+                    {weather.daily.temperature_2m_min[idx]}°
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>

@@ -260,7 +260,7 @@ header {
   padding: 18px;
 }
 
-.current-weather {
+/* .current-weather {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -275,7 +275,99 @@ header {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+} */
+
+.current-weather {
+  background: linear-gradient(135deg, #4f56ff 0%, #6d45f7 70%); /* Purple/blue gradient */
+  border-radius: 20px;
+  position: relative;
+  padding: 38px 38px 40px 32px;
+  min-height: 170px;
+  display: flex;
+  /* flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  box-shadow: 0 4px 40px rgba(76,103,255, 0.24); */
+  color: #fff;
+  overflow: hidden;
 }
+
+/* For a decorative background SVG/image */
+.current-weather::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/images/bg-today-large.svg'); /* adjust path as needed */
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* opacity: 0.3; /* soft overlay 
+  z-index: 0; */
+}
+
+.weather-loc{
+  margin-left: 8px;
+  display: flex;
+  align-items: center;  
+  justify-content: flex-start; 
+}
+.location {
+  font-family: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', 'DM Sans', Arial, sans-serif;
+  font-size: 1.26rem;
+  font-weight: bold;
+  color: #fff;
+  letter-spacing: 0.01em;
+  margin-left: 10px;
+  z-index: 1;
+  position: absolute;
+  left: 0;       
+  top: 45%;      
+}
+
+.weather-date {
+  font-family: 'DM Sans Variable', 'DM Sans', Arial, sans-serif;
+  font-size: 1.05rem;
+  color: #dadefc;
+  margin-top: 4px;
+  margin-bottom: 6px;
+  margin-left: 10px;
+  position: relative;
+  z-index: 1;
+  position: absolute;
+  left: 0;            
+  top: 55%;
+}
+
+/* .temp-icon {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+  margin-top: 18px;
+  display: flex;
+  align-items: center;  
+  justify-content: flex-end;
+} */
+
+.weather-main-icon {
+  font-size: 2.4rem;
+  margin-right: 6px;
+  text-align: right;
+  right: 50;            
+  top: 55%;
+}
+.highlight-temp {
+  font-size: 3.2rem;
+  font-weight: 700;
+  font-family: 'DM Sans Variable', 'DM Sans', Arial, sans-serif;
+  color: #fff;
+  line-height: 1;
+  display: flex;
+  text-align: right;
+  right: 50;            
+  top: 55%;
+}
+
 
 @media (min-width: 768px) {
   .current-weather {
@@ -319,8 +411,10 @@ header {
   font-size: 1.5em;
   
 }
-.h3{
+.daily-forecast-heading h3{
   display: flex;
+  text-align: left;
+
 }
 .daily-forecast {
   display: grid;
@@ -339,9 +433,23 @@ header {
   margin: auto;
   font-size: 1.2rem;
 }
-.forecast-day .minmax {
-  font-size: 1rem;
+.forecast-day .min .max {
+  font-size: 0.7rem;
   margin-top: 6px;
+}
+.forecast-day .minmax{
+  display: flex;
+  /* text-align: left; */
+  justify-content: space-between;
+}
+.forecast-day .min{
+  display: flex;
+  text-align: right;
+}
+.forecast-day .max{
+  display: flex;
+  text-align: left;
+  justify-content: space-between;
 }
 .forecast-day .label {
   font-size: 0.95rem;
