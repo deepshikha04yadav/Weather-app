@@ -178,13 +178,16 @@ export default function WeatherApp() {
                   </select>
                 </div>
               </div>
-              {getHourlyForDay(weather.hourly, weather.daily.time[selectedDay]).map((h, idx) => (
-                <div key={idx} className="hour-block">
-                  <span className="hour-icon">{getWeatherIcon(h.weather_code)}</span>
-                  <span className="hour-label">{formatHour(h.time)}</span>
-                  <span className="hour-temp">{h.temperature_2m}°</span>
-                </div>
-              ))}
+              <div className="hour-scroll">
+                {getHourlyForDay(weather.hourly, weather.daily.time[selectedDay]).map((h, idx) => (
+                
+                  <div key={idx} className="hour-block">
+                    <span className="hour-icon">{getWeatherIcon(h.weather_code)}</span>
+                    <span className="hour-label">{formatHour(h.time)}</span>
+                    <span className="hour-temp">{h.temperature_2m}°</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -198,7 +201,6 @@ function getWeatherIcon(code) {
   if ([1,2,3].includes(code)) return <img src={partly_cloudy} alt="Partly-cloudy" className="partly-cloudy-image" />;
   if ([45].includes(code)) return <img src={fog} alt="Fog" className="fog-image" />;
   if ([48].includes(code)) return <img src={overcast} alt="Cloudy" className="cloudy-image" />;
-  // 45, 48 fog
   if ([51,53,55,56,57].includes(code)) return <img src={drizzle} alt="Drizzle" className="cloud-with-rain-img" />;
   if ([61,63,65,66,67,80,81,82].includes(code)) return <img src={rain} alt="Rain" className='rain-icon' />;
   if ([71,73,75,77,85,86].includes(code)) return <img src={snow} alt="Snow" className="snow-image" />;
@@ -221,7 +223,7 @@ function getHourlyForDay(hourly, selectedDay) {
       return null;
     })
     .filter(Boolean)
-    .slice(0, 8);
+    .slice(0, 24);
 }
 
 function formatHour(t) {

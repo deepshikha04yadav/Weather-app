@@ -18,11 +18,8 @@ body {
 .app-container {
   max-width: 1100px;
   margin: auto;
-  /* background: var(--accent);
-  border-radius: var(--radius);
-  box-shadow: 0 2px 32px var(--shadow);
-  padding: 24px; */
 } 
+
 /* header */
 header {
   display: flex;
@@ -48,59 +45,48 @@ header {
   font-family: 'DM Sans', Arial, sans-serif;
   min-width: 110px;
 }
-
-/* Icon on left */
 .units-icon-img {
   width: 20px;
   height: 20px;
   margin-right: 10px;
   flex-shrink: 0;
 }
-
-/* Label next to icon */
 .units-label {
   margin-right: 10px;
   font-size: 1rem;
 }
-
-/* Arrow icon container */
 .units-arrow {
   display: flex;
   align-items: center;
-  pointer-events: none; /* Disable pointer - user clicks select */
+  pointer-events: none; 
 }
-
-/* Arrow image */
 .arrow-image {
   width: 12px;
   height: 12px;
   user-select: none;
 }
 
-/* Select dropdown styling */
 .units-dropdown {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0;               /* Hide native select but keep functional */
+  opacity: 0;
   cursor: pointer;
   border: none;
   background-color: #292b51;
-  border-radius: 20%;
   color: #ffffff;
   font-size: 1rem;
   font-family: inherit;
 }
 
-/* Remove native arrow in some browsers */
 .units-dropdown::-ms-expand {
   display: none;
 }
 .units-dropdown {
-  -webkit-appearance: none; /* Chrome & Safari */
-  -moz-appearance: none;    /* Firefox */
+  -webkit-appearance: none; 
+  -moz-appearance: none; 
   appearance: none;
 }
 
@@ -494,9 +480,20 @@ header {
 }
 
 /* hourly forecast */
+.hourly-forecast {
+  display: grid;
+  /* grid-template-rows: repeat(8, auto); */
+  max-height: 660px;
+  gap: 6px;
+  overflow-y: auto;
+}
 .top{
   display: flex;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
 }
 .hourly-forecast h3{
   display: flex;
@@ -512,28 +509,44 @@ header {
   padding: 4px;
   border-radius: 7px;
   border: none;
-  background: #181837;
+  background: #37375b;
   color: var(--text);
   font-size: 1rem;
   text-align: center;
 }
 
-.hourly-forecast {
-  display: grid;
-  grid-template-rows: repeat(8, auto);
-  gap: 6px;
-}
 
+.hour-scroll{
+  max-height: 582px;
+  width: 100%;
+  flex: 1;                 /* take remaining space */
+  overflow-y: auto;        /* make only this part scroll */
+  scrollbar-width: thin;  
+  scroll-behavior: smooth; 
+  scrollbar-color: #353740 transparent;
+}
 
 .hour-block {
   display: flex;
-  /* justify-content: space-between; */
-  background: #2b2d54;
+  background: #2e3051;
   border-radius: 7px;
   padding: 5px 8px;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 20px;
   height: auto;
+}
+/* For Webkit browsers (Chrome, Safari, Edge) scrollbar styling */
+.hourly-forecast::-webkit-scrollbar {
+  width: 6px;
+}
+
+.hourly-forecast::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.hourly-forecast::-webkit-scrollbar-thumb {
+  background-color: #4c67ff;
+  border-radius: 3px;
 }
 
  .hour-block img, .hour-block span.icon {
