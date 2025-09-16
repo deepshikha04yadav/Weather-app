@@ -5,7 +5,9 @@ import unitsIcon from '../assets/images/icon-units.svg';
 import arrow from '../assets/images/icon-dropdown.svg';
 import searchIcon from '../assets/images/icon-search.svg'
 import drizzle from '../assets/images/icon-drizzle.webp';
+import rain from '../assets/images/icon-rain.webp' 
 import sunny from '../assets/images/icon-sunny.webp';
+import fog from '../assets/images/icon-fog.webp';
 import overcast from '../assets/images/icon-overcast.webp';
 import storm from '../assets/images/icon-storm.webp';
 import partly_cloudy from '../assets/images/icon-partly-cloudy.webp';
@@ -68,7 +70,7 @@ export default function WeatherApp() {
     return new Date(dateStr).toLocaleDateString("en-US", opts);
   }
   function getDayLabel(dateStr) {
-    return formatDate(dateStr, { weekday: "short" });
+    return formatDate(dateStr, { weekday: "long" });
   }
 
   return (
@@ -192,13 +194,15 @@ export default function WeatherApp() {
 }
 
 function getWeatherIcon(code) {
-  if ([].includes(code)) return <img src={sunny} alt="Sunny" className="sunny-image" height= "35px"/>;
-  if ([1,2,3].includes(code)) return <img src={partly_cloudy} alt="Partly-cloudy" className="partly-cloudy-image" height= "35px"/>;
-  if ([45,48].includes(code)) return <img src={overcast} alt="Cloudy" className="cloudy-image" height= "35px"/>;
-  if ([51,53,55,56,57].includes(code)) return "🌦️";
-  if ([61,63,65,66,67,80,81,82].includes(code)) return <img src={drizzle} alt="Drizzle" className="cloud-with-rain-img" height= "35px"/>;
-  if ([71,73,75,77,85,86].includes(code)) return <img src={snow} alt="Snow" className="snow-image" height= "35px"/>;
-  if ([95,96,99].includes(code)) return <img src={storm} alt="Storm" className="storm-image" height= "35px"/>;
+  if ([0].includes(code)) return <img src={sunny} alt="Sunny" className="sunny-image" />;
+  if ([1,2,3].includes(code)) return <img src={partly_cloudy} alt="Partly-cloudy" className="partly-cloudy-image" />;
+  if ([45].includes(code)) return <img src={fog} alt="Fog" className="fog-image" />;
+  if ([48].includes(code)) return <img src={overcast} alt="Cloudy" className="cloudy-image" />;
+  // 45, 48 fog
+  if ([51,53,55,56,57].includes(code)) return <img src={drizzle} alt="Drizzle" className="cloud-with-rain-img" />;
+  if ([61,63,65,66,67,80,81,82].includes(code)) return <img src={rain} alt="Rain" className='rain-icon' />;
+  if ([71,73,75,77,85,86].includes(code)) return <img src={snow} alt="Snow" className="snow-image" />;
+  if ([95,96,99].includes(code)) return <img src={storm} alt="Storm" className="storm-image" />;
   return "🌡️";
 }
 

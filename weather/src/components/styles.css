@@ -16,7 +16,7 @@ body {
 
 
 .app-container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: auto;
   /* background: var(--accent);
   border-radius: var(--radius);
@@ -312,7 +312,7 @@ header {
 }
 .location {
   font-family: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', 'DM Sans', Arial, sans-serif;
-  font-size: 1.26rem;
+  font-size: 1.6rem;
   font-weight: bold;
   color: #fff;
   letter-spacing: 0.01em;
@@ -320,7 +320,7 @@ header {
   z-index: 1;
   position: absolute;
   left: 0;       
-  top: 45%;      
+  top: 41%;      
 }
 
 .weather-date {
@@ -337,9 +337,9 @@ header {
   top: 55%;
 }
 
-/* .temp-icon {
+.temp-icon {
   display: flex;
-  align-items: center;
+  /* align-items: ; */
   gap: 16px;
   position: relative;
   z-index: 1;
@@ -347,11 +347,12 @@ header {
   display: flex;
   align-items: center;  
   justify-content: flex-end;
-} */
+}
 
-.weather-main-icon {
+.weather-main-icon img{
   font-size: 2.4rem;
   margin-right: 6px;
+  height: 60px;
   text-align: right;
   right: 50;            
   top: 55%;
@@ -431,7 +432,8 @@ header {
 .forecast-day img, .forecast-day span.icon {
   display: block;
   margin: auto;
-  font-size: 1.2rem;
+  /* font-size: 1.2rem; */
+  height: 70px;
 }
 .forecast-day .min .max {
   font-size: 0.7rem;
@@ -441,6 +443,7 @@ header {
   display: flex;
   /* text-align: left; */
   justify-content: space-between;
+  font-size: 1rem;
 }
 .forecast-day .min{
   display: flex;
@@ -456,6 +459,7 @@ header {
   color: #b4b8e7;
 }
 
+/* hourly forecast */
 .top{
   display: flex;
   justify-content: space-between;
@@ -463,20 +467,21 @@ header {
 .hourly-forecast h3{
   display: flex;
   text-align: left;
-  font-size: 1em;
+  font-size: 1.2em;
 }
 .hourly-selector {
   margin-bottom: 1em;
-  text-align: right;
+  text-align: center;
   display: flex;
 }
 .hourly-selector select {
-  padding: 8px;
+  padding: 4px;
   border-radius: 7px;
   border: none;
   background: #181837;
   color: var(--text);
   font-size: 1rem;
+  text-align: center;
 }
 
 .hourly-forecast {
@@ -491,21 +496,28 @@ header {
   /* justify-content: space-between; */
   background: #2b2d54;
   border-radius: 7px;
-  padding: 5px 18px;
+  padding: 5px 8px;
   align-items: center;
-  font-size: 1.08rem;
+  margin-bottom: 8px;
+  height: auto;
 }
 
-.hour-block .hour-icon {
-  font-size: 1.3rem;
-  margin-right: 1em;
+ .hour-block img, .hour-block span.icon {
+  /* font-size: 1.3rem; */
+  margin-right: 0.5em;
+  height: 40px;
+ 
 }
-
+.hour-block .hour-label {
+  font-size: 1.1em;
+  font-weight: 400;
+}
 .hour-block .hour-temp {
-  font-weight: 600;
+  font-size: 0.9em;
+  font-weight: 300;
   margin-left: auto;
 }
-
+/* hourly forecast end */
 @media (max-width: 800px) {
   .weather-main {
     grid-template-columns: 1fr;
