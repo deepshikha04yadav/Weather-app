@@ -28,8 +28,8 @@ async function geocodePlace(place) {
 }
 
 const unitOptions = [
-  { value: "metric", label: "Celsius", params: "temperature_unit=celsius&windspeed_unit=kmh&precipitation_unit=mm" },
-  { value: "imperial", label: "Fahrenheit", params: "temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch" },
+  { value: "metric", label: "Metrics", params: "temperature_unit=celsius&windspeed_unit=kmh&precipitation_unit=mm" },
+  { value: "imperial", label: "Imperial", params: "temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch" },
 ];
 
 export default function WeatherApp() {
