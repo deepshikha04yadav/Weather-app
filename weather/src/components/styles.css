@@ -16,7 +16,7 @@ body {
 
 
 .app-container {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: auto;
   /* background: var(--accent);
   border-radius: var(--radius);
@@ -287,8 +287,8 @@ header {
   margin-bottom: 18px;
   /* flex-direction: column;
   justify-content: center;
-  gap: 16px;
-  box-shadow: 0 4px 40px rgba(76,103,255, 0.24); */
+  gap: 16px; */
+  /* box-shadow: 0 4px 40px rgba(76,103,255, 0.24); */
   color: #fff;
   overflow: hidden;
 }
@@ -298,11 +298,11 @@ header {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url('../assets/images/bg-today-large.svg'); /* adjust path as needed */
+  background-image: url('../assets/images/bg-today-large.png'); /* adjust path as needed */
   background-repeat: no-repeat;
   background-size: cover;
-  /* opacity: 0.3; /* soft overlay 
-  z-index: 0; */
+    opacity: 0.7; /* soft overlay  */
+    z-index: 0;
 }
 
 .weather-loc{
@@ -382,6 +382,16 @@ header {
     padding: 24px 6px 26px 6px;
     min-height: 140px;
     text-align: center;
+    height: 250px;
+    top: 50;
+  }
+  .current-weather::before{
+    background-image: url('../assets/images/bg-today-small.png'); /* adjust path as needed */
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.7; /* soft overlay  */
+    z-index: 0;
+    
   }
 
   .weather-loc {
@@ -389,8 +399,9 @@ header {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0;
+    margin-bottom: 30px;         /* change*/
     width: 100%;
+    margin-top: 30px;
   }
 
   .location,
@@ -404,12 +415,12 @@ header {
   }
 
   .location {
-    font-size: 1.25rem;
-    margin-bottom: 4px;
+    font-size: 1.9rem;
+    margin-bottom: 12px;
   }
 
   .weather-date {
-    font-size: 1rem;
+    font-size: 1.1rem;
     margin-bottom: 14px;
     color: #dadefc;
   }
@@ -420,28 +431,28 @@ header {
     align-items: center;
     gap: 10px;
     width: 100%;
-    margin-top: 4px;
+    margin-top: 30px;
+    margin-bottom: -20px;
   }
 
   .weather-main-icon img,
   .weather-main-icon {
     position: static !important;
     font-size: 2rem !important;
-    height: 45px !important;
+    height: 90px !important;
     margin-right: 0 !important;
-    margin: 0 12px 0 0 !important;
-    transform: none !important;
+    margin: 0 12px 0 0 !important;  
     display: inline-block;
     vertical-align: middle;
-  }
+  } 
 
   .highlight-temp {
+    font-style: italic !important;
     position: static !important;
     right: auto !important;
     top: auto !important;
     margin: 0 !important;
-    font-size: 2.3rem;
-    font-style: normal;
+    font-size: 5rem;
     vertical-align: middle;
     display: inline-block;
     line-height: 1.1;
