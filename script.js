@@ -1,24 +1,24 @@
 // Example JS: For demo, uses placeholder data. Replace with API requests for full functionality.
 
 const dailyData = [
-  { day: 'Tue', icon: '🌧️', max: 20, min: 14 },
-  { day: 'Wed', icon: '🌦️', max: 21, min: 15 },
-  { day: 'Thu', icon: '☀️', max: 24, min: 17 },
-  { day: 'Fri', icon: '⛅', max: 25, min: 18 },
-  { day: 'Sat', icon: '🌤️', max: 21, min: 15 },
-  { day: 'Sun', icon: '🌧️', max: 21, min: 16 },
-  { day: 'Mon', icon: '🌫️', max: 24, min: 15 },
+  { icon: '🌧️', day: 'Tue', max: 20, min: 14 },
+  { icon: '🌦️', day: 'Wed',  max: 21, min: 15 },
+  { icon: '☀️', day: 'Thu', max: 24, min: 17 },
+  { icon: '⛅', day: 'Fri', max: 25, min: 18 },
+  { icon: '🌤️', day: 'Sat', max: 21, min: 15 },
+  { icon: '🌧️', day: 'Sun', max: 21, min: 16 },
+  { icon: '🌫️', day: 'Mon', max: 24, min: 15 },
 ];
 
 const hourlyData = [
-  { time: '3 PM', icon: '☀️', temp: 20 },
-  { time: '4 PM', icon: '🌤️', temp: 20 },
-  { time: '5 PM', icon: '☀️', temp: 20 },
-  { time: '6 PM', icon: '🌤️', temp: 19 },
-  { time: '7 PM', icon: '⛅', temp: 18 },
-  { time: '8 PM', icon: '🌫️', temp: 17 },
-  { time: '9 PM', icon: '🌧️', temp: 17 },
-  { time: '10 PM', icon: '🌧️', temp: 17 }
+  { icon: '☀️', time: '3 PM', temp: 20 },
+  { icon: '🌤️', time: '4 PM', temp: 20 },
+  { icon: '☀️', time: '5 PM', temp: 20 },
+  { icon: '🌤️', time: '6 PM', temp: 19 },
+  { icon: '⛅', time: '7 PM', temp: 18 },
+  { icon: '🌫️', time: '8 PM', temp: 17 },
+  { icon: '🌧️', time: '9 PM', temp: 17 },
+  { icon: '🌧️', time: '10 PM', temp: 17 }
 ];
 
 const dailyForecastElem = document.getElementById('daily-forecast');
@@ -46,8 +46,8 @@ function renderHourly(idx = 0) {
   hourlyData.forEach(h => {
     const block = document.createElement('div');
     block.className = 'hour-block';
-    block.innerHTML = `<span>${h.time}</span>
-      <span class="hour-icon">${h.icon}</span>
+    block.innerHTML = `<span class="hour-icon">${h.icon}</span>
+      <span>${h.time}</span>
       <span class="hour-temp">${h.temp}°</span>`;
     hourlyForecastElem.appendChild(block);
   });
@@ -125,3 +125,77 @@ document.addEventListener('click', e => {
     unitsToggle.classList.remove('open');
   }
 });
+
+// const searchBox = document.getElementById("search-box");
+// const weatherDetailsElem = document.getElementById("weather-details");
+// const locationTxt = document.getElementById("location");
+// const weatherCondIcon = document.getElementById("weather-condition-icon");
+// const weatherCondName = document.getElementById("weather-condition-name");
+// const temperatureTxt = document.getElementById("temperature");
+// const humidityTxt = document.getElementById("humidity");
+// const windSpeedTxt = document.getElementById("wind-speed");
+// const locationInput = document.getElementById("location-input");
+// const dailyForecastElems = document.getElementById("daily-forecast")
+// const errTxt = document.getElementById("errTxt")
+// async function getLocation(location){
+//      const res = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${location}&count=1&language=en&format=json`);
+//      const data = await res.json();
+//      const result = data.results[0];
+//      return {
+//           name: result.name || "",
+//           lat: result.latitude,
+//           lon: result.longitude
+//      }
+// }
+
+// async function getWeather(location){
+//      const {lat,lon,name} = await getLocation(location);
+//      const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,is_day,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min`);
+//      const data = await res.json();
+//      return {
+//           name,
+//           current: data.current,
+//           daily: data.daily
+//      }
+// }
+// searchBox.addEventListener("submit",async e=>{
+//      e.preventDefault()
+//      weatherDetailsElem.classList.remove("active")
+//      dailyForecastElems.innerHTML = ""
+//      if(locationInput.value.trim()===""){
+//           errTxt.textContent = "Please Enter a Location To Get Weather Details"
+//      } else {
+//           errTxt.textContent = ""
+//           try{
+//                const weather = await getWeather(locationInput.value)
+//                const {temperature_2m,relative_humidity_2m,is_day,weather_code,wind_speed_10m} = weather.current
+//                const {weather_code: daily_weather_code,temperature_2m_max,temperature_2m_min,time} = weather.daily
+//                const weatherCondition = weather_codes[weather_code]
+//                const imgSrc = `assets/${is_day ? weatherCondition.icons.day : weatherCondition.icons.night}`
+//                locationTxt.textContent = weather.name
+//                temperatureTxt.textContent = temperature_2m
+//                humidityTxt.textContent = relative_humidity_2m
+//                windSpeedTxt.textContent = wind_speed_10m
+//                weatherCondName.textContent = weatherCondition.name
+//                weatherCondIcon.src = imgSrc
+//                for(let i=0;i<7;i++){
+//                     const weatherCond = weather_codes[daily_weather_code[i]]
+//                     const temperatureMax = temperature_2m_max[i]
+//                     const temperatureMin = temperature_2m_min[i]
+//                     const timestamp = time[i] 
+//                     const elem = document.createElement("div")
+//                     elem.className = "card"
+//                     elem.innerHTML = `<img src="assets/${weatherCond.icons.day}" alt="weather-icon" width="100" height="100"/>
+//                     <div class="temps">
+//                          <p class="temp" title="Maximum Temperature">${temperatureMax}<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M16.5 5c1.55 0 3 .47 4.19 1.28l-1.16 2.89A4.47 4.47 0 0 0 16.5 8C14 8 12 10 12 12.5s2 4.5 4.5 4.5c1.03 0 1.97-.34 2.73-.92l1.14 2.85A7.47 7.47 0 0 1 16.5 20A7.5 7.5 0 0 1 9 12.5A7.5 7.5 0 0 1 16.5 5M6 3a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0 2a1 1 0 0 0-1 1a1 1 0 0 0 1 1a1 1 0 0 0 1-1a1 1 0 0 0-1-1"/></svg></p>
+//                          <p class="temp" title="Minimum Temperature">${temperatureMin}<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M16.5 5c1.55 0 3 .47 4.19 1.28l-1.16 2.89A4.47 4.47 0 0 0 16.5 8C14 8 12 10 12 12.5s2 4.5 4.5 4.5c1.03 0 1.97-.34 2.73-.92l1.14 2.85A7.47 7.47 0 0 1 16.5 20A7.5 7.5 0 0 1 9 12.5A7.5 7.5 0 0 1 16.5 5M6 3a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0 2a1 1 0 0 0-1 1a1 1 0 0 0 1 1a1 1 0 0 0 1-1a1 1 0 0 0-1-1"/></svg></p>
+//                     </div>
+//                     <p class="date">${timestamp}</p>`
+//                     dailyForecastElems.appendChild(elem)
+//                }
+//                weatherDetailsElem.classList.add("active")
+//           } catch {
+//                errTxt.textContent = "Location Not Found"
+//           }
+//      }
+// })
