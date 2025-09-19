@@ -43,9 +43,45 @@ export default function WeatherApp() {
   const [precipUnit, setPrecipUnit] = useState('mm');
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const isImperial = temperatureUnit === 'fahrenheit' && windUnit === 'mph' && precipUnit === 'inch';
-  // Inside your component:
+  const [apiError, setApiError] = useState(false);
+  const [recent, setRecent] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
+  const [showDrop, setShowDrop] = useState(false);
+  const [debouncedQ, setDebouncedQ] = useState('');
 
-const [apiError, setApiError] = useState(false);
+// load 3 recent on mount
+useEffect(() => {
+  const saved = JSON.parse(localStorage.getItem('recentSearches') || '[]');
+  setRecent(saved.slice(0, 3));
+}, []);
+
+// debounce the live query (300ms)
+useEffect(() => {
+  const t = setTimeout(() => setDebouncedQ(search.trim()), 300);
+  return () => clearTimeout(t);
+}, [search]);
+useEffect(() => {
+  async function fetchSuggestions(q) {
+    if (!q) { setSuggestions([]); return; }
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&limit=5`;
+    const resp = await fetch(url, { headers: { 'Accept-Language': 'en' } });
+    const data = await resp.json();
+    setSuggestions(data.map(d => ({
+      name: d.display_name,
+      lat: d.lat,
+      lon: d.lon
+    })));
+  }
+  fetchSuggestions(debouncedQ);
+}, [debouncedQ]);
+function rememberSearch(name) {
+  const saved = JSON.parse(localStorage.getItem('recentSearches') || '[]');
+  const next = [name, ...saved.filter(x => x !== name)].slice(0, 3);
+  localStorage.setItem('recentSearches', JSON.stringify(next));
+  setRecent(next);
+}
+
+
 
 async function fetchWeather() {
   setLoading(true);
@@ -102,6 +138,7 @@ function onRetry() {
       setNoResult(true);
       setWeather(null);
     }
+    rememberSearch(geo.display_name);
   };
 
   function formatDate(dateStr, opts) {
@@ -269,10 +306,51 @@ function onRetry() {
             <input
               type="text"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={e => setSearch(e.target.value)}
+              onFocus={() => setShowDrop(true)}
+              onBlur={() => setTimeout(() => setShowDrop(false), 120)}
               placeholder="Search for a place..."
               className="search-box"
             />
+              {showDrop && (
+                <div className="recent-dropdown">
+                  {(!debouncedQ && recent.length > 0) ? (
+                    recent.map((name, i) => (
+                      <button
+                        key={`r-${i}`}
+                        type="button"
+                        className="recent-item"
+                        onMouseDown={e => e.preventDefault()}
+                        onClick={() => {
+                          setSearch(name);
+                          setShowDrop(false);
+                        }}
+                      >
+                        {name}
+                      </button>
+                    ))
+                  ) : (
+                    suggestions.slice(0,5).map((s, i) => (
+                      <button
+                        key={`s-${i}`}
+                        type="button"
+                        className="recent-item"
+                        onMouseDown={e => e.preventDefault()}
+                        onClick={() => {
+                          setSearch(s.name);
+                          setShowDrop(false);
+                          // optional: immediately set location and remember
+                          setLocation({ lat: s.lat, lon: s.lon, display_name: s.name });
+                          rememberSearch(s.name);
+                        }}
+                      >
+                        {s.name}
+                      </button>
+                    ))
+                  )}
+                </div>
+              )}
+
           </div>
           <button type="submit" className="search-btn">
             Search

@@ -284,6 +284,50 @@ header {
   position: relative;
   cursor: pointer;
 }
+/* container that wraps input + dropdown; must be position:relative */
+.search-img {
+  position: relative;
+}
+
+/* dropdown */
+.recent-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: #2b2944;
+  border-radius: 12px;
+  padding: 6px 0;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+  z-index: 20;
+}
+
+/* item */
+.recent-item {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #e9e7f6;
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-size: 1rem;
+  padding: 12px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+
+.recent-item:hover,
+.recent-item:focus {
+  background: #34325a;
+  border-color: #3f3d68;
+}
+
+/* ensure search input has higher z-index if needed */
+.search-box {
+  position: relative;
+  z-index: 21;
+}
 
 .search-box::placeholder {
   color: #cdc9dd;
@@ -676,7 +720,6 @@ header {
 /* hourly forecast */
 .hourly-forecast {
   display: grid;
-  /* grid-template-rows: repeat(8, auto); */
   max-height: 650px;
   gap: 6px;
   overflow-y: auto;
@@ -694,22 +737,52 @@ header {
   text-align: left;
   font-size: 1.2em;
 }
+/* container (optional) */
 .hourly-selector {
-  margin-bottom: 1em;
-  text-align: center;
   display: flex;
+  justify-content: center;
+  margin: 1rem 0;
 }
-.hourly-selector select {
-  padding: 4px;
-  border-radius: 7px;
-  border: transparent;
-  background: #37375b;
-  color: var(--text);
+
+/* custom select */
+.day-selector {
+  appearance: none;        /* hide default arrow in most browsers */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #1e1e2f;   /* dark violet/blue background */
+  color: #fff;
   font-size: 1rem;
-  text-align: left;
+  padding: 0.75rem 1rem;
+  border: 1px #1e1e2f;
+  border-radius: 0.75rem;
+  width: 150px;              /* adjust as needed */
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
-.day-selector{
-  border-radius: 10px;
+.day-selector {
+  background-image: url("../assets/images/icon-dropdown.svg");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 12px 8px;
+  padding-right: 2.5rem; /* room for arrow */
+}
+
+/* hover & focus states */
+.day-selector:hover {
+  border-color: rgba(255,255,255,0.3);
+  background-color: #2a2a3e;
+}
+.day-selector:focus {
+  border-color: #35326a; /* accent color when focused */
+  box-shadow: 0 0 0 2px rgba(108,99,255,0.3);
+}
+
+/* dropdown options */
+.day-selector option {
+  background-color: #1e1e2f;
+  color: #fff;
+  padding: 0.75rem 1rem;
 }
 
 .hour-scroll{
