@@ -178,10 +178,62 @@ header {
   position: relative;
 }
 
-
-
 /* header end */
+/* api error page */
+.error-card {
+  background: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 110px;
+  margin-bottom: 50px;
+}
 
+.error-icon {
+  margin-bottom: 26px;
+}
+
+.error-title {
+  color: #fff;
+  font-family: 'DM Sans Variable', 'DM Sans', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 2.1rem;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.error-desc {
+  color: #cccce8;
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-size: 1.15rem;
+  margin-bottom: 26px;
+  text-align: center;
+  line-height: 1.45;
+}
+
+.retry-btn {
+  background: #35355a;
+  color: #ebedf6;
+  font-family: 'DM Sans Variable', 'DM Sans', Arial, sans-serif;
+  border: none;
+  border-radius: 8px;
+  padding: 11px 30px;
+  font-size: 1.04rem;
+  font-weight: 600;
+  letter-spacing: 0.009em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background 0.19s;
+  margin: 0 auto;
+}
+
+.retry-btn:hover,
+.retry-btn:focus {
+  background: #41418b;
+}
+/* api error page end */
 
 .headline {
   text-align: center;
@@ -305,7 +357,10 @@ header {
   background: #2c44d4;
 }
 /* search sectiion end  */
-.no-result {
+
+
+/* loading */
+/* .no-result {
   display: block;
   text-align: center;
   font-family: 'DM Sans Variable', 'DM Sans', Arial, sans-serif;
@@ -314,7 +369,45 @@ header {
   color: #fff;
   font-weight: 600;
   letter-spacing: 0.015em;
+} */
+
+.loading-card {
+  background: #23224a;
+  border-radius: 20px;
+  min-height: 200px;
+  min-width: 420px;
+  max-width: 580px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  margin-bottom: 26px;
+  box-shadow: 0 3px 24px rgba(46, 46, 86, 0.13);
 }
+
+.loading-spinner {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 18px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-text {
+  color: #dedcf7;
+  font-size: 1.18rem;
+  letter-spacing: 0.01em;
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-weight: 600;
+  text-align: center;
+}
+/* loading end */
 
 /* weather main */
 .weather-main {
@@ -609,13 +702,15 @@ header {
 .hourly-selector select {
   padding: 4px;
   border-radius: 7px;
-  border: none;
+  border: transparent;
   background: #37375b;
   color: var(--text);
   font-size: 1rem;
-  text-align: center;
+  text-align: left;
 }
-
+.day-selector{
+  border-radius: 10px;
+}
 
 .hour-scroll{
   max-height: 550px;

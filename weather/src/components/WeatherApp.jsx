@@ -11,6 +11,9 @@ import overcast from '../assets/images/icon-overcast.webp';
 import storm from '../assets/images/icon-storm.webp';
 import partly_cloudy from '../assets/images/icon-partly-cloudy.webp';
 import snow from '../assets/images/icon-snow.webp';
+import loader from '../assets/images/icon-loading.svg';
+import error from '../assets/images/icon-error.svg';
+import retry from '../assets/images/icon-retry.svg';
 
 import { buildOpenMeteoParams } from '../api';
 import './styles.css';
@@ -40,6 +43,32 @@ export default function WeatherApp() {
   const [precipUnit, setPrecipUnit] = useState('mm');
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const isImperial = temperatureUnit === 'fahrenheit' && windUnit === 'mph' && precipUnit === 'inch';
+  // Inside your component:
+
+const [apiError, setApiError] = useState(false);
+
+async function fetchWeather() {
+  setLoading(true);
+  setApiError(false);
+  try {
+    const url = buildOpenMeteoParams(location.lat, location.lon, temperatureUnit, windUnit, precipUnit);
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('API error');
+    const data = await response.json();
+    setWeather(data);
+  } catch (error) {
+    setApiError(true);
+    setWeather(null);
+  }
+  setLoading(false);
+}
+
+// Retry handler to call fetchWeather again and clear errors
+function onRetry() {
+  setApiError(false);
+  fetchWeather();
+}
+
 
   // Fetch weather whenever location/units change
   useEffect(() => {
@@ -216,132 +245,155 @@ export default function WeatherApp() {
           )}
         </div>
       </header>
-
-      {/* Headline & search */}
-      <h1 className="headline"><b>How's the sky looking today?</b></h1>
-      <form className="search-section" onSubmit={handleSearch}>
-        <div className="search-img">
-          <img src={searchIcon} alt="Search" className="search-icon" />
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search for a place..."
-            className="search-box"
-          />
+      {apiError ? (
+        <div className="error-card">
+          <div className="error-icon">
+            <img src={error} alt="Error" className="error-icon" />
+          </div>
+          <div className="error-title">Something went wrong</div>
+          <div className="error-desc">
+            We couldn't connect to the server (API error). Please try again in a few moments.
+          </div>
+          <button className="retry-btn" type="button" onClick={onRetry}>
+            <img src={retry} alt="Retry" className="retry-icon" />
+            Retry
+          </button>
         </div>
-        <button type="submit" className="search-btn">
-          Search
-        </button>
-      </form>
-
-      {/* Results or loading */}
-      {noResult ? (
-        <div className="no-result">No search result found!</div>
       ) : (
         <>
-          {loading && <div className="loading">Loading...</div>}
-          {weather && (
-            <section className="weather-main">
-              <div>
-                {/* Current Weather */}
-                <div className="current-weather">
-                  <div className="weather-loc">
-                    <div className="location">{location.display_name}</div>
-                    <div className="weather-date">
-                      {formatDate(
-                        (weather.current && weather.current.time) || new Date(),
-                        { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' }
-                      )}
-                    </div>
-                  </div>
-                  <div className="temp-icon">
-                    <span className="weather-main-icon">
-                      {getWeatherIcon(weather.current_weather?.weathercode)}
-                    </span>
-                    <span className="highlight-temp">
-                      {weather.current_weather?.temperature}°
-                    </span>
-                  </div>
-                </div>
-                {/* Metrics */}
-                <div className="metrics">
-                  <div className="feels-like">
-                    Feels Like<br /><br />
-                    <span className="curr-temp">{weather.hourly?.apparent_temperature?.[0]}°</span>
-                  </div>
-                  <div className="humidity">
-                    Humidity<br /><br />
-                    <span className="curr-humidity">{weather.hourly?.relative_humidity_2m?.[0]}%</span>
-                  </div>
-                  <div className="wind">
-                    Wind<br /><br />
-                    <span className="curr-wind">
-                      {weather.current_weather?.windspeed}
-                      {windUnit === 'mph' ? ' mph' : ' km/h'}
-                    </span>
-                  </div>
-                  <div className="precipitation">
-                    Precipitation<br /><br />
-                    <span className="curr-preci">
-                      {weather.hourly?.precipitation?.[0]}
-                      {precipUnit === 'inch' ? ' in' : ' mm'}
-                    </span>
-                  </div>
-                </div>
-                {/* Daily Forecast */}
-                <div className="daily-forecast-heading">
-                  <h3>Daily Forecast</h3>
-                </div>
-                <div className="daily-forecast">
-                  {weather.daily?.time && weather.daily.time.map((d, idx) => (
-                    <div key={d} className="forecast-day">
-                      <span className="label">{getDayLabel(d)}</span>
-                      <br /><br />
-                      <span className="icon">{getWeatherIcon(weather.daily.weather_code[idx])}</span>
-                      <br />
-                      <div className="minmax">
-                        <div className="max">{weather.daily.temperature_2m_max[idx]}°</div>
-                        <div className="min">{weather.daily.temperature_2m_min[idx]}°</div>
+        {/* Headline & search */}
+        <h1 className="headline"><b>How's the sky looking today?</b></h1>
+        <form className="search-section" onSubmit={handleSearch}>
+          <div className="search-img">
+            <img src={searchIcon} alt="Search" className="search-icon" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search for a place..."
+              className="search-box"
+            />
+          </div>
+          <button type="submit" className="search-btn">
+            Search
+          </button>
+        </form>
+
+        {/* Results or loading */}
+        {noResult ? (
+          <div className="no-result">No search result found!</div>
+        ) : (
+          <>
+            {loading && (
+              <div className="loading-card">
+                <img src={loader} alt="Loading..." className="loading-spinner" />
+                <div className="loading-text">Loading...</div>
+              </div>
+            )}
+
+            {weather && (
+              <section className="weather-main">
+                <div>
+                  {/* Current Weather */}
+                  <div className="current-weather">
+                    <div className="weather-loc">
+                      <div className="location">{location.display_name}</div>
+                      <div className="weather-date">
+                        {formatDate(
+                          (weather.current && weather.current.time) || new Date(),
+                          { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' }
+                        )}
                       </div>
                     </div>
-                  ))}
-                </div>
-              </div>
-              {/* Hourly Forecast */}
-              <div>
-                <div className="hourly-forecast">
-                  <div className="top">
-                    <h3>Hourly forecast</h3>
-                    <div className="hourly-selector">
-                      <select
-                        value={selectedDay}
-                        onChange={(e) => setSelectedDay(Number(e.target.value))}
-                        className="day-selector"
-                      >
-                        {weather.daily?.time && weather.daily.time.map((d, idx) => (
-                          <option key={d} value={idx}>
-                            {getDayLabel(d)}
-                          </option>
-                        ))}
-                      </select>
+                    <div className="temp-icon">
+                      <span className="weather-main-icon">
+                        {getWeatherIcon(weather.current_weather?.weathercode)}
+                      </span>
+                      <span className="highlight-temp">
+                        {weather.current_weather?.temperature}°
+                      </span>
                     </div>
                   </div>
-                  <div className="hour-scroll">
-                    {getHourlyForDay(weather.hourly, weather.daily?.time?.[selectedDay]).map((h, idx) => (
-                      <div key={idx} className="hour-block">
-                        <span className="hour-icon">{getWeatherIcon(h.weather_code)}</span>
-                        <span className="hour-label">{formatHour(h.time)}</span>
-                        <span className="hour-temp">{h.temperature_2m}°</span>
+                  {/* Metrics */}
+                  <div className="metrics">
+                    <div className="feels-like">
+                      Feels Like<br /><br />
+                      <span className="curr-temp">{weather.hourly?.apparent_temperature?.[0]}°</span>
+                    </div>
+                    <div className="humidity">
+                      Humidity<br /><br />
+                      <span className="curr-humidity">{weather.hourly?.relative_humidity_2m?.[0]}%</span>
+                    </div>
+                    <div className="wind">
+                      Wind<br /><br />
+                      <span className="curr-wind">
+                        {weather.current_weather?.windspeed}
+                        {windUnit === 'mph' ? ' mph' : ' km/h'}
+                      </span>
+                    </div>
+                    <div className="precipitation">
+                      Precipitation<br /><br />
+                      <span className="curr-preci">
+                        {weather.hourly?.precipitation?.[0]}
+                        {precipUnit === 'inch' ? ' in' : ' mm'}
+                      </span>
+                    </div>
+                  </div>
+                  {/* Daily Forecast */}
+                  <div className="daily-forecast-heading">
+                    <h3>Daily Forecast</h3>
+                  </div>
+                  <div className="daily-forecast">
+                    {weather.daily?.time && weather.daily.time.map((d, idx) => (
+                      <div key={d} className="forecast-day">
+                        <span className="label">{getDayLabel(d)}</span>
+                        <br /><br />
+                        <span className="icon">{getWeatherIcon(weather.daily.weather_code[idx])}</span>
+                        <br />
+                        <div className="minmax">
+                          <div className="max">{weather.daily.temperature_2m_max[idx]}°</div>
+                          <div className="min">{weather.daily.temperature_2m_min[idx]}°</div>
+                        </div>
                       </div>
                     ))}
                   </div>
                 </div>
-              </div>
-            </section>
-          )}
-        </>
-      )}
+                {/* Hourly Forecast */}
+                <div>
+                  <div className="hourly-forecast">
+                    <div className="top">
+                      <h3>Hourly forecast</h3>
+                      <div className="hourly-selector">
+                        <select
+                          value={selectedDay}
+                          onChange={(e) => setSelectedDay(Number(e.target.value))}
+                          className="day-selector"
+                        >
+                          {weather.daily?.time && weather.daily.time.map((d, idx) => (
+                            <option key={d} value={idx}>
+                              {getDayLabel(d)}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="hour-scroll">
+                      {getHourlyForDay(weather.hourly, weather.daily?.time?.[selectedDay]).map((h, idx) => (
+                        <div key={idx} className="hour-block">
+                          <span className="hour-icon">{getWeatherIcon(h.weather_code)}</span>
+                          <span className="hour-label">{formatHour(h.time)}</span>
+                          <span className="hour-temp">{h.temperature_2m}°</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </section>
+            )}
+          </>
+        )}
+      </>
+    )}
     </div>
   );
 }
