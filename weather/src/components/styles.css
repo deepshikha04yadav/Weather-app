@@ -16,7 +16,7 @@ body {
 
 
 .app-container {
-  max-width: 1400px;
+  max-width: 1300px;
   margin: auto;
 } 
 
@@ -36,7 +36,7 @@ header {
   color: #fff;
   user-select: none;
   /* Container size */
-  min-width: 160px;
+  min-width: 130px;
 }
 
 /* Button styles */
@@ -79,34 +79,60 @@ header {
 }
 
 /* Dropdown menu */
+/* Dropdown menu container */
 .units-dropdown-menu {
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  background-color: #292b51;
-  border-radius: 14px;
-  box-shadow: 0 8px 24px rgba(76,103,255,0.18);
-  min-width: 220px;
-  padding: 16px 0;
+  background: #272551;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(44, 48, 93, 0.50), 0 1px 4px rgba(76,103,255,0.13);
+  min-width: 235px;
   z-index: 999;
+  padding: 14px 0 10px 0;
   color: #fff;
+  font-family: 'DM Sans Variable', 'DM Sans', Arial, sans-serif;
 }
 
-/* Dropdown section */
-.dropdown-section {
-  padding: 8px 20px;
-  border-bottom: 1px solid #383a5d;
+/* Switch section at the top */
+.switch-imperial {
+  font-weight: 600;
+  background: none;
+  color: #ffffff;
+  padding: 12px 24px 12px 24px;
+  border-bottom: 1.5px solid #34335c;
+  border-radius: 0;
+  margin-bottom: 4px;
+  margin-left: 15px;
+  font-size: 1.04rem;
+  text-align: left;
+  width: 100%;
+  transition: background .16s, color .16s;
 }
+.switch-imperial:hover,
+.switch-imperial:focus {
+  background: #252344;
+  color: #ffffff;
+}
+
+/* Individual dropdown section */
+.dropdown-section {
+  padding: 10px 24px;
+  border-bottom: 1px solid #32305a;
+}
+
 .dropdown-section:last-child {
   border-bottom: none;
 }
 
-/* Section title */
+/* Dropdown section titles */
 .dropdown-title {
-  font-size: 1rem;
-  color: #9aa1d6;
-  font-weight: 600;
-  margin-bottom: 8px;
+  font-size: 1.005rem;
+  color: #b7bbdb;
+  font-weight: 700;
+  margin-bottom: 3px;
+  margin-top: 3px;
+  letter-spacing: 0.01em;
 }
 
 /* Dropdown items */
@@ -114,32 +140,44 @@ header {
   width: 100%;
   background: none;
   border: none;
-  color: #fff;
-  font-size: 1rem;
-  padding: 8px 4px;
+  color: #ecebfc;
+  font-size: 1.04rem;
+  padding: 9px 0 9px 3px;
   text-align: left;
   cursor: pointer;
-  border-radius: 10px;
-  transition: background-color 0.15s ease;
+  border-radius: 9px;
+  margin-bottom: 2px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
   position: relative;
-  user-select: none;
-}
-.dropdown-item:hover,
-.dropdown-item:focus {
-  background-color: #393a58;
+  transition: background-color .15s;
   outline: none;
 }
 
-/* Selected item */
+.dropdown-item.selected,
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background: #32305a;
+  color: #fff;
+}
+
+/* Tick for selected item */
 .dropdown-item.selected::after {
+  content: url('../assets/images/icon-checkmark.svg');
   position: absolute;
-  right: 14px;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
   color: #aab6fa;
-  font-size: 1.1rem;
+  font-size: 1.07rem;
   pointer-events: none;
 }
+
+/* Make the dropdown pop above other content */
+.units-toggle {
+  position: relative;
+}
+
 
 
 /* header end */
@@ -256,7 +294,7 @@ header {
 /* Desktop view (min 768px wide) */
 @media (min-width: 768px) {
   .search-section {
-    width: 70%;
+    width: 50%;
     margin-left: auto;
     margin-right: auto;
   }

@@ -39,6 +39,7 @@ export default function WeatherApp() {
   const [windUnit, setWindUnit] = useState('kmh');
   const [precipUnit, setPrecipUnit] = useState('mm');
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const isImperial = temperatureUnit === 'fahrenheit' && windUnit === 'mph' && precipUnit === 'inch';
 
   // Fetch weather whenever location/units change
   useEffect(() => {
@@ -127,7 +128,12 @@ export default function WeatherApp() {
         <div
           className="units-toggle"
           tabIndex="0"
-          onBlur={() => setDropdownOpen(false)}
+          onBlur={(e) => {
+            // Check relatedTarget (newly focused element)
+            if (!e.currentTarget.contains(e.relatedTarget)) {
+              setDropdownOpen(false);
+            }
+          }}
         >
           <button className="units-btn" onClick={() => setDropdownOpen((open) => !open)}>
             <span className="units-icon">
@@ -140,6 +146,27 @@ export default function WeatherApp() {
           </button>
           {dropdownOpen && (
             <div className="units-dropdown-menu">
+              <button
+                type="button"
+                className="dropdown-item switch-imperial"
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  if (isImperial) {
+                    // Switch to Metric units
+                    setTemperatureUnit('celsius');
+                    setWindUnit('kmh');
+                    setPrecipUnit('mm');
+                  } else {
+                    // Switch to Imperial units
+                    setTemperatureUnit('fahrenheit');
+                    setWindUnit('mph');
+                    setPrecipUnit('inch');
+                  }
+                }}
+              >
+                {isImperial ? 'Switch to Metrics' : 'Switch to Imperial'}
+              </button>
+
               <div className="dropdown-section">
                 <div className="dropdown-title">Temperature</div>
                 <button
