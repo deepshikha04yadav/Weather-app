@@ -16,7 +16,7 @@ body {
 
 
 .app-container {
-  max-width: 1100px;
+  max-width: 1400px;
   margin: auto;
 } 
 
@@ -192,6 +192,7 @@ header {
   transition: box-shadow 0.15s, border 0.15s;
   box-shadow: none;
   position: relative;
+  cursor: pointer;
 }
 
 .search-box::placeholder {
