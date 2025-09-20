@@ -19,7 +19,6 @@ import { buildOpenMeteoParams } from '../api';
 import './styles.css';
 
 
-// Helper to geocode user input
 async function geocodePlace(place) {
   const resp = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(place)}`);
   const data = await resp.json();
@@ -37,7 +36,6 @@ export default function WeatherApp() {
   const [loading, setLoading] = useState(false);
   const [noResult, setNoResult] = useState(false);
 
-  // Independent unit states
   const [temperatureUnit, setTemperatureUnit] = useState('celsius');
   const [windUnit, setWindUnit] = useState('kmh');
   const [precipUnit, setPrecipUnit] = useState('mm');
@@ -55,7 +53,7 @@ useEffect(() => {
   setRecent(saved.slice(0, 3));
 }, []);
 
-// debounce the live query (300ms)
+
 useEffect(() => {
   const t = setTimeout(() => setDebouncedQ(search.trim()), 300);
   return () => clearTimeout(t);
@@ -99,7 +97,7 @@ async function fetchWeather() {
   setLoading(false);
 }
 
-// Retry handler to call fetchWeather again and clear errors
+// Retry handler 
 function onRetry() {
   setApiError(false);
   fetchWeather();
@@ -148,7 +146,6 @@ function onRetry() {
     return formatDate(dateStr, { weekday: 'long' });
   }
 
-  // Weather code mapping to image
   function getWeatherIcon(code) {
     if ([0].includes(code)) return <img src={sunny} alt="Sunny" className="sunny-image" />;
     if ([1, 2, 3].includes(code)) return <img src={partly_cloudy} alt="Partly cloudy" className="partly-cloudy-image" />;
@@ -188,14 +185,12 @@ function onRetry() {
 
   return (
     <div className="app-container">
-      {/* Header with logo and units dropdown */}
       <header className="header">
         <img src={logo} alt="Weather Now Logo" className="logo-img" width="170px" />
         <div
           className="units-toggle"
           tabIndex="0"
           onBlur={(e) => {
-            // Check relatedTarget (newly focused element)
             if (!e.currentTarget.contains(e.relatedTarget)) {
               setDropdownOpen(false);
             }
@@ -339,7 +334,6 @@ function onRetry() {
                         onClick={() => {
                           setSearch(s.name);
                           setShowDrop(false);
-                          // optional: immediately set location and remember
                           setLocation({ lat: s.lat, lon: s.lon, display_name: s.name });
                           rememberSearch(s.name);
                         }}
@@ -470,8 +464,8 @@ function onRetry() {
             )}
           </>
         )}
-      </>
-    )}
+        </>
+      )}
     </div>
   );
 }

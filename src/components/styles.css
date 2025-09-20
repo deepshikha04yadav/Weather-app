@@ -6,6 +6,58 @@
   --shadow: rgba(0,0,0,0.2);
   --radius: 16px;
 }
+@font-face {
+  font-family: 'DM Sans';
+  src: url('../assets/fonts/DM_Sans/static/DMSans-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'DM Sans';
+  src: url('../assets/fonts/DM_Sans/static/DMSans-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'DM Sans';
+  src: url('../assets/fonts/DM_Sans/static/DMSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DM Sans Variable';
+  src: url('../assets/fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('../assets/fonts/Bricolage_Grotesque/static/BricolageGrotesque-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Bricolage Grotesque Variable';
+  src: url('../assets/fonts/Bricolage_Grotesque/BricolageGrotesque-VariableFont_opsz,wdth,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+
+body {
+  font-family: 'DM Sans Variable', 'DM Sans', Arial, sans-serif;
+  font-weight: 400;
+}
+h1, h2, .logo {
+  font-family: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', 'DM Sans', Arial, sans-serif;
+  font-weight: bold;
+}
+button, input, .headline {
+  font-family: 'DM Sans Variable', 'DM Sans', Arial, sans-serif;
+  font-weight: 500;
+}
 
 body {
   background-color: var(--primary-bg);
@@ -172,13 +224,12 @@ header {
   font-size: 1.07rem;
   pointer-events: none;
 }
-
-/* Make the dropdown pop above other content */
 .units-toggle {
   position: relative;
 }
 
 /* header end */
+
 /* api error page */
 .error-card {
   background: none;
@@ -284,12 +335,9 @@ header {
   position: relative;
   cursor: pointer;
 }
-/* container that wraps input + dropdown; must be position:relative */
 .search-img {
   position: relative;
 }
-
-/* dropdown */
 .recent-dropdown {
   position: absolute;
   top: calc(100% + 6px);
@@ -301,8 +349,6 @@ header {
   box-shadow: 0 8px 24px rgba(0,0,0,0.28);
   z-index: 20;
 }
-
-/* item */
 .recent-item {
   width: 100%;
   text-align: left;
@@ -322,8 +368,6 @@ header {
   background: #34325a;
   border-color: #3f3d68;
 }
-
-/* ensure search input has higher z-index if needed */
 .search-box {
   position: relative;
   z-index: 21;
@@ -370,24 +414,22 @@ header {
 /*  Mobile view */
 @media (max-width: 600px) {
   .search-section {
-    flex-direction: column; /* stack vertically */
-    align-items: stretch;   /* children take full width */
+    flex-direction: column;
+    align-items: stretch;
   }
 
   #search-btn {
-    width: 100%;   /* full width on mobile */
+    width: 100%;   
     text-align: center;
   }
   #search-img {
-    width: 100%;   /* full width on mobile */
+    width: 100%; 
     height: 48px; 
   }
   .search-box{
-    width: 100%;   /* full width on mobile */
     height: 48px; 
   }
 }
-/* Desktop view (min 768px wide) */
 @media (min-width: 768px) {
   .search-section {
     width: 50%;
@@ -450,13 +492,12 @@ header {
 .current-weather, .wind, .feels-like, .humidity, .precipitation, .hourly-forecast {
   background: #212240;
   border-radius: var(--radius);
-  /* margin-bottom: 1px; */
   box-shadow: 0 2px 8px var(--shadow);
   padding: 18px;
 }
 /* current weather */
 .current-weather {
-  background: linear-gradient(135deg, #4f56ff 0%, #6d45f7 70%); /* Purple/blue gradient */
+  background: linear-gradient(135deg, #4f56ff 0%, #6d45f7 70%);
   border-radius: 20px;
   position: relative;
   padding: 38px 38px 40px 32px;
@@ -544,7 +585,7 @@ header {
 
 @media (min-width: 768px) {
   .current-weather {
-    padding-right: 200px; /* only on desktop */
+    padding-right: 200px; 
     height: 200px;
   }
 }
@@ -560,10 +601,10 @@ header {
     top: 50;
   }
   .current-weather::before{
-    background-image: url('../assets/images/bg-today-small.png'); /* adjust path as needed */
+    background-image: url('../assets/images/bg-today-small.png');
     background-repeat: no-repeat;
     background-size: cover;
-    opacity: 0.7; /* soft overlay  */
+    opacity: 0.7;
     z-index: 0;
     
   }
@@ -657,17 +698,16 @@ header {
 }
 /* metrics end */
 
+/* daily forecast */
 .daily-forecast-heading h3{
   display: flex;
   text-align: left;
-
 }
 .daily-forecast {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 14px;
 }
-
 .forecast-day {
   background: #292b51;
   border-radius: 10px;
@@ -677,7 +717,6 @@ header {
 .forecast-day img, .forecast-day span.icon {
   display: block;
   margin: auto;
-  /* font-size: 1.2rem; */
   height: 70px;
 }
 .forecast-day .min .max {
@@ -686,7 +725,6 @@ header {
 }
 .forecast-day .minmax{
   display: flex;
-  /* text-align: left; */
   justify-content: space-between;
   font-size: 1rem;
 }
@@ -703,6 +741,7 @@ header {
   font-size: 0.95rem;
   color: #b4b8e7;
 }
+/* daily forecast end */
 
 /* hourly forecast */
 .hourly-forecast {
@@ -724,25 +763,23 @@ header {
   text-align: left;
   font-size: 1.2em;
 }
-/* container (optional) */
 .hourly-selector {
   display: flex;
   justify-content: center;
   margin: 1rem 0;
 }
 
-/* custom select */
 .day-selector {
-  appearance: none;        /* hide default arrow in most browsers */
+  appearance: none;   
   -webkit-appearance: none;
   -moz-appearance: none;
-  background-color: #1e1e2f;   /* dark violet/blue background */
+  background-color: #1e1e2f;  
   color: #fff;
   font-size: 1rem;
   padding: 0.75rem 1rem;
   border: 1px #1e1e2f;
   border-radius: 0.75rem;
-  width: 130px;              /* adjust as needed */
+  width: 130px;           
   cursor: pointer;
   outline: none;
   transition: background-color 0.2s ease, border-color 0.2s ease;
@@ -752,16 +789,15 @@ header {
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: 12px 8px;
-  padding-right: 2.5rem; /* room for arrow */
+  padding-right: 2.5rem; 
 }
 
-/* hover & focus states */
 .day-selector:hover {
   border-color: rgba(255,255,255,0.3);
   background-color: #2a2a3e;
 }
 .day-selector:focus {
-  border-color: #35326a; /* accent color when focused */
+  border-color: #35326a; 
   box-shadow: 0 0 0 2px rgba(108,99,255,0.3);
 }
 
@@ -775,8 +811,8 @@ header {
 .hour-scroll{
   max-height: 550px;
   width: 100%;
-  flex: 1;                 /* take remaining space */
-  overflow-y: auto;        /* make only this part scroll */
+  flex: 1;               
+  overflow-y: auto;       
   scrollbar-width: thin;  
   scroll-behavior: smooth; 
   scrollbar-color: #353740 transparent;
@@ -806,7 +842,6 @@ header {
 }
 
  .hour-block img, .hour-block span.icon {
-  /* font-size: 1.3rem; */
   margin-right: 0.5em;
   height: 40px;
  
@@ -821,6 +856,7 @@ header {
   margin-left: auto;
 }
 /* hourly forecast end */
+
 @media (max-width: 800px) {
   .weather-main {
     grid-template-columns: 1fr;
@@ -844,60 +880,4 @@ header {
   .hourly-forecast {
     grid-template-rows: none;
   }
-}
-
-
-/* DM Sans: Example for semi-bold, medium, and variable font */
-@font-face {
-  font-family: 'DM Sans';
-  src: url('../assets/fonts/DM_Sans/static/DMSans-Medium.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'DM Sans';
-  src: url('../assets/fonts/DM_Sans/static/DMSans-SemiBold.ttf') format('truetype');
-  font-weight: 600;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'DM Sans';
-  src: url('../assets/fonts/DM_Sans/static/DMSans-Bold.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-}
-/* For all weights, you can use the Variable version: */
-@font-face {
-  font-family: 'DM Sans Variable';
-  src: url('../assets/fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: normal;
-}
-
-/* Bricolage Grotesque: Example for bold and variable font */
-@font-face {
-  font-family: 'Bricolage Grotesque';
-  src: url('../assets/fonts/Bricolage_Grotesque/static/BricolageGrotesque-Bold.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Bricolage Grotesque Variable';
-  src: url('../assets/fonts/Bricolage_Grotesque/BricolageGrotesque-VariableFont_opsz,wdth,wght.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: normal;
-}
-
-
-body {
-  font-family: 'DM Sans Variable', 'DM Sans', Arial, sans-serif;
-  font-weight: 400;
-}
-h1, h2, .logo {
-  font-family: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', 'DM Sans', Arial, sans-serif;
-  font-weight: bold;
-}
-button, input, .headline {
-  font-family: 'DM Sans Variable', 'DM Sans', Arial, sans-serif;
-  font-weight: 500;
 }
