@@ -12,9 +12,6 @@ This is a solution to the [Weather app challenge on Frontend Mentor](https://www
   - [Built with](#built-with)
   - [Future Enhancements](#future-enhancements)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
-
-**Note: Delete this note and update the table of contents based on what sections you keep.**
 
 ## Overview
 
@@ -53,18 +50,18 @@ Users should be able to:
 - Vercel
 
 ### Future Enhancements
+* __Location Autodetect__ – Automatically detect and display weather for the user’s current location using the browser’s geolocation API.
+
+* __Search Suggestions__ – Add an autocomplete feature to the search bar for faster and more accurate city selection.
+
+* __Extended Data & Alerts__ – Show additional metrics such as UV index, air quality, sunrise/sunset times, and severe weather alerts when available.
+
+* __Theme & Accessibility__ – Provide dark/light mode toggles, improve keyboard navigation, and enhance screen reader support.
+
+* __Favorites & Preferences__ – Allow saving favorite locations and persist unit preferences (Celsius/Fahrenheit, metric/imperial) across sessions.
 
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
+- Frontend Mentor - [@deepshikha04yadav](https://www.frontendmentor.io/profile/deepshikha04yadav)
 
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
