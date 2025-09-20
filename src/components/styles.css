@@ -402,19 +402,6 @@ header {
 }
 /* search sectiion end  */
 
-
-/* loading */
-/* .no-result {
-  display: block;
-  text-align: center;
-  font-family: 'DM Sans Variable', 'DM Sans', Arial, sans-serif;
-  font-size: 1.7rem;
-  margin-top: 64px;
-  color: #fff;
-  font-weight: 600;
-  letter-spacing: 0.015em;
-} */
-
 .loading-card {
   background: #23224a;
   border-radius: 20px;
@@ -755,7 +742,7 @@ header {
   padding: 0.75rem 1rem;
   border: 1px #1e1e2f;
   border-radius: 0.75rem;
-  width: 150px;              /* adjust as needed */
+  width: 130px;              /* adjust as needed */
   cursor: pointer;
   outline: none;
   transition: background-color 0.2s ease, border-color 0.2s ease;
